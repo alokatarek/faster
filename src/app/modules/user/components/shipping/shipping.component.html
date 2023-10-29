@@ -1,0 +1,276 @@
+<app-nave-side-bar> </app-nave-side-bar>
+<div class="container d-flex justify-content-center align-items-center mt-5 " dir="rtl">
+  <form class="shippingForm w-100" [formGroup]="shippingForm" (ngSubmit)="onSubmit()">
+    <div class="row mt-3 slideInRight animated">
+      <div class="col-md-6 col-sm-12">
+        <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+          <mat-label>أسم العميل</mat-label>
+          <input matInput placeholder="أسم العميل" formControlName="name" readonly />
+        </mat-form-field>
+      </div>
+      <div class="col-md-6 col-sm-12">
+        <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+          <mat-label>رقم تليفون</mat-label>
+          <input
+            matInput
+            placeholder="رقم تليفون"
+            formControlName="phoneNumber"
+          />
+        </mat-form-field>
+      </div>
+      <div class="col-12" formGroupName="shipFrom">
+        <h4 class="my-2">شحن من</h4>
+        <div class="row">
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>محافظة</mat-label>
+              <mat-select formControlName="governorate" placeholder="محافظة"
+              (selectionChange)="onSelectionGovernorate($event, 'from')">
+              <mat-option
+              *ngFor="let option of stateDropdownData"
+              [value]="option.id"
+              >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>مدينة</mat-label>
+              <mat-select formControlName="city" placeholder="مدينة"
+              (selectionChange)="onSelectionCity($event, 'from')">
+              <mat-option
+              *ngFor="let option of cityDropdownDataFrom"
+              [value]="option.id"
+              >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>منطقة</mat-label>
+              <mat-select formControlName="area" placeholder="منطقة">
+                  <mat-option
+                  *ngFor="let option of areaDropdownDataFrom"
+                  [value]="option.id"
+                  >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" formGroupName="shipTo">
+        <h4 class="my-2">شحن الي</h4>
+        <div class="row"> 
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>محافظة</mat-label>
+              <mat-select formControlName="governorate" placeholder="محافظة"
+              (selectionChange)="onSelectionGovernorate($event, 'to')">
+              <mat-option
+              *ngFor="let option of stateDropdownData"
+              [value]="option.id"
+              >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>مدينة</mat-label>
+              <mat-select formControlName="city" placeholder="مدينة" 
+              (selectionChange)="onSelectionCity($event, 'to')">
+              <mat-option
+              *ngFor="let option of cityDropdownDataTo"
+              [value]="option.id"
+              >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4 col-12">
+            <mat-form-field  class="mx-1 w-100" appearance="outline">
+              <mat-label>منطقة</mat-label>
+              <mat-select formControlName="area" placeholder="منطقة">
+                  <mat-option
+                  *ngFor="let option of areaDropdownDataTo"
+                  [value]="option.id"
+                  >{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" formGroupName="shipSize">
+        <h4 class="my-2">حجم المنقولات</h4>
+      <div class="row">
+        <div class="col-md-4 col-12">
+          <mat-form-field class="mx-1 w-100" appearance="outline">
+            <mat-label>الطول (cm)</mat-label>
+            <input type="number" matInput placeholder="الطول" formControlName="length" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-12">
+          <mat-form-field class="mx-1 w-100" appearance="outline">
+            <mat-label>العرض (cm)</mat-label>
+            <input type="number" matInput placeholder="العرض" formControlName="width" />
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-12">
+          <mat-form-field class="mx-1 w-100" appearance="outline">
+            <mat-label> الارتفاع (cm)</mat-label>
+            <input type="number" matInput placeholder="الارتفاع" formControlName="height" />
+          </mat-form-field>
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-12">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>نوع المركبة المطلوبة للنقل </mat-label>
+          <mat-select  formControlName="transportationVehicle">
+              <mat-option
+              *ngFor="let option of vehicleTypesList"
+              [value]="option.id"
+              >{{ option.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-12">
+        <mat-form-field class="descShip w-100"  appearance="outline">
+          <mat-label>وصف المنقولات </mat-label>
+          <textarea matInput rows="9" cols="10"  placeholder="وصف المنقولات " formControlName="shippmentDesc" ></textarea>
+        </mat-form-field>
+      </div>
+      <div class=" col-sm-12 text-center">
+        <button class="flex-grow-1 my-3 w-50 " type="submit" mat-raised-button color="primary">ارسال الطلب</button>
+      </div>
+  </div>
+    <!-- <div class="d-flex ">
+      <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+        <mat-label>أسم العميل</mat-label>
+        <input matInput placeholder="أسم العميل" formControlName="name" readonly />
+      </mat-form-field>
+
+      <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+        <mat-label>رقم تليفون</mat-label>
+        <input
+          matInput
+          placeholder="رقم تليفون"
+          formControlName="phoneNumber"
+        />
+      </mat-form-field>
+    </div>
+    <div class="d-flex flex-column" formGroupName="shipFrom">
+      <h4 class="my-2">شحن من</h4>
+      <div>
+        <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>محافظة</mat-label>
+            <mat-select formControlName="governorate" placeholder="محافظة"
+            (selectionChange)="onSelectionGovernorate($event, 'from')">
+            <mat-option
+            *ngFor="let option of stateDropdownData"
+            [value]="option.id"
+            >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>مدينة</mat-label>
+            <mat-select formControlName="city" placeholder="مدينة"
+            (selectionChange)="onSelectionCity($event, 'from')">
+            <mat-option
+            *ngFor="let option of cityDropdownDataFrom"
+            [value]="option.id"
+            >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>منطقة</mat-label>
+            <mat-select formControlName="area" placeholder="منطقة">
+                <mat-option
+                *ngFor="let option of areaDropdownDataFrom"
+                [value]="option.id"
+                >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+      </div>
+    </div>
+    <div class="d-flex flex-column" formGroupName="shipTo">
+      <h4 class="my-2">شحن الي</h4>
+      <div>
+        <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>محافظة</mat-label>
+            <mat-select formControlName="governorate" placeholder="محافظة"
+            (selectionChange)="onSelectionGovernorate($event, 'to')">
+            <mat-option
+            *ngFor="let option of stateDropdownData"
+            [value]="option.id"
+            >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>مدينة</mat-label>
+            <mat-select formControlName="city" placeholder="مدينة" 
+            (selectionChange)="onSelectionCity($event, 'to')">
+            <mat-option
+            *ngFor="let option of cityDropdownDataTo"
+            [value]="option.id"
+            >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field  class="mx-1" appearance="outline">
+            <mat-label>منطقة</mat-label>
+            <mat-select formControlName="area" placeholder="منطقة">
+                <mat-option
+                *ngFor="let option of areaDropdownDataTo"
+                [value]="option.id"
+                >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column" formGroupName="shipSize">
+      <h4 class="my-2">حجم المنقولات</h4>
+      <div>
+        <mat-form-field class="mx-1" appearance="outline">
+          <mat-label>الطول (cm)</mat-label>
+          <input type="number" matInput placeholder="الطول" formControlName="length" />
+        </mat-form-field>
+
+        <mat-form-field class="mx-1" appearance="outline">
+          <mat-label>العرض (cm)</mat-label>
+          <input type="number" matInput placeholder="العرض" formControlName="width" />
+        </mat-form-field>
+
+        <mat-form-field class="mx-1" appearance="outline">
+          <mat-label> الارتفاع (cm)</mat-label>
+          <input type="number" matInput placeholder="الارتفاع" formControlName="height" />
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column">
+        <mat-form-field appearance="outline">
+            <mat-label>نوع المركبة المطلوبة للنقل </mat-label>
+            <mat-select formControlName="transportationVehicle">
+                <mat-option
+                *ngFor="let option of vehicleTypesList"
+                [value]="option.id"
+                >{{ option.name }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="descShip"  appearance="outline">
+            <mat-label>وصف المنقولات </mat-label>
+            <textarea matInput rows="9" cols="10"  placeholder="وصف المنقولات " formControlName="shippmentDesc" ></textarea>
+          </mat-form-field>
+    </div>
+
+    <div class="d-flex">
+        <button class="flex-grow-1 my-3" type="submit" mat-raised-button color="primary">ارسال الطلب</button>
+    </div> -->
+    
+  </form>
+</div>

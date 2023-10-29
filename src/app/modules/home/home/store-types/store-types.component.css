@@ -1,0 +1,101 @@
+/* 
+.product-item .product-image {
+    width: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+}
+.product-item .product-item-content {
+    border: 1px solid var(--surface-d);
+    border-radius: 3px;
+    margin: .3rem;
+    text-align: center;
+    padding: 2rem 0;
+} */
+
+
+
+.btn-style{
+	padding: 4px 8px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+
+
+}
+
+ .btn-style:hover{
+	box-shadow: 0 2px 7px black;
+ }
+
+
+.border-radius{
+ border: 1px solid transparent;
+ border-radius: 10px;
+}
+
+.padding-carousel{
+    padding: 0 50px ;
+}
+
+.img-carousel{
+    height:200px
+}
+.h1-carousel{
+    box-shadow: -1px 2px 9px grey;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: #0080FF;
+    position: relative;
+    bottom: -22px;
+    text-align: center;
+    
+}
+
+.hover-store-type-style{
+   transition: all .2s ease-in-out;
+}
+
+.hover-store-type-style:hover{
+    transform: scale(1.1)
+}
+
+::ng-deep .owl-theme .owl-nav [class*=owl-]{
+    font-size: 28px;
+    font-weight: bolder;
+    color: black;
+    padding-bottom: 10px;
+  }
+
+
+@media only screen and (max-width: 600px) {
+    .img-carousel{
+        height:100px;
+    }
+
+    .justify-content-center> div:last-child{
+        margin-right: 0px  !important;
+    }
+    
+    .justify-content-center > div{
+        margin-left: 0px!important;
+        
+    }
+    .m-auto h1{
+font-size: large;
+margin-bottom: 0px;
+    }
+    .m-mobile{
+        margin: 20px 0px 0px 0px !important;
+    }
+
+    .h1-carousel {
+        font-size: 10px;
+        line-height: 13px;
+        height: 30px;
+      }
+      .img-carousel {
+        height: 100px;
+      }
+    
+}
+
+
+ 

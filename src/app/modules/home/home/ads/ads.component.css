@@ -1,0 +1,25 @@
+.ads-style {
+  border: 1px solid transparent;
+  border-radius: 10px;
+}
+
+.ads-style {
+  height: 300px;
+}
+
+.ads-style h3 {
+  width: fit-content;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .ads-style {
+        height: 250px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+  .ads-style {
+    height: 180px;
+  }
+}

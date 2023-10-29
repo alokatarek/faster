@@ -1,0 +1,131 @@
+@import "~animate.css/animate.min";
+html,
+body {
+  height: 100%;
+  background-color: white;
+  white-space: nowrap;
+  /* overflow-x: hidden; */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Cairo", sans-serif !important;
+}
+
+.material-icons {
+  font-family: "Material Icons" !important;
+}
+
+/* ------------- form field and select ------------------ */
+
+.mat-option-text {
+  font-size: 15px;
+}
+
+.mat-select-panel .mat-option {
+  height: 3em !important;
+}
+
+.mat-form-field-flex {
+  font-size: smaller;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0px;
+}
+
+/* toast style  */
+
+.toast-success {
+  background-color: #b5eacc !important;
+  color: black;
+  direction: rtl;
+}
+
+.toast-failed {
+  background-color: #ffe3e0 !important;
+  color: black;
+  direction: rtl;
+  max-width: 50vw !important;
+}
+
+/* --------------------radio button----------------- */
+.mat-radio-label-content {
+  padding-right: 8px !important;
+}
+
+/* -----------------------scroll-------------------- */
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* -------------- pagination ----------------*/
+
+.mat-form-field-flex {
+  height: 40px;
+}
+
+.ngx-pagination .current {
+  /* border-radius: 50%; */
+  font-size: 1rem;
+  /* padding: 10px!important;  */
+}
+
+.ngx-pagination a {
+  font-size: 1rem;
+  /* border-radius: 50% !important; */
+  text-decoration: none !important;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.modalContent {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 61vh;
+  padding: 10px;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+/* -----------------------mobile ------------------------- */
+
+@media only screen and (max-width: 600px) {
+  body {
+    font-size: small !important;
+  }
+  button {
+    font-size: small !important;
+  }
+
+  .form-control {
+    font-size: smaller;
+  }
+
+  ::ng-deep .mat-snack-bar-container {
+    background: #b5eacc;
+  }
+}

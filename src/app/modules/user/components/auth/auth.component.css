@@ -1,0 +1,219 @@
+.login-container{
+    background-image: url("../../../../../assets/images/auth-bg.jpg");
+         
+    height: 100vh;
+}
+
+.login-effects{
+    height: 100vh;
+    background: linear-gradient(90deg, rgba(9,9,121,0.6) 100%,   rgba(2,0,36,0.9)  100%);
+
+}
+
+
+.login-logo img, .sign-up-logo img{
+  width: 120px;
+  margin: auto;
+}
+
+.login-form-container{
+    width: 50%;
+    background-color: white;
+    /* padding: 50px 30px; */
+     border: 1px solid transparent;
+     border-radius: 8px;
+       
+}
+
+.login-form{
+    width: 50%;
+    border-right: 6px dashed #0080FF;
+}
+
+
+/* .login-form > div{
+    width: 50%;
+
+} */
+.login-logo{
+    width: 50%;
+    margin-bottom: 20px;
+}
+.sign-up-logo{
+    margin-bottom: 20px;
+
+}
+
+
+.login-form-container  form >p > .mat-form-field  {
+    width: 100%;
+    margin: auto;
+    font-size: 20px;
+}
+
+::ng-deep .mat-form-field-flex{
+ height: 60px;
+}
+
+::ng-deep .mat-form-field-label{
+    font-size: 16px!important;
+}
+
+.login-button {
+    font-size: 25px;
+    width: 96%;
+}
+.sign-up-button{
+    font-size: 25px;
+}
+
+.sign-up-button:hover{
+color: #0080FF;
+}
+
+/* .login-form-container h1 {
+    font-size: 30px;
+} */
+
+.sign-up-mobile{
+    display: none;
+}
+.back-to-login{
+    display: flex;
+}
+
+.spinner-border{
+    width: 50px !important;
+    height: 50px !important;
+}
+
+@media only screen and (max-width: 1024px){
+
+    .login-form-container{
+        width: 60%;
+    }
+
+    .login-form-container h1 {
+        font-size: 22px;
+    }
+    
+}
+
+
+
+@media only screen and (max-width: 768px){
+    .login-form-container  form >p > .mat-form-field  {
+        font-size: 17px;
+                }
+    .login-form-container{
+        width: 60%;
+    }
+    .sign-up-mobile {
+        display: flex
+    }
+    .sign-up-mobile > p:nth-child(1):hover{
+        text-decoration: underline;
+        color: black;
+    }
+   
+    .login-form-container > div{
+        display: none !important;
+    }
+    .login-form{
+        border-right: 0px ;
+        width: 100%;
+        padding-top: 30px !important;
+        padding-bottom: 10px!important;
+    }
+    .login-form > p {
+        margin: 0px;
+    }
+    .login-logo img{
+        width:90px;
+    }
+
+    ::ng-deep .mat-form-field-flex{
+        height:50px;
+       }
+       
+       ::ng-deep .mat-form-field-label{
+           font-size: 14px!important;
+       }
+   .login-button{
+    width: 96%;
+     margin-top: 15px;
+     margin-bottom: 15px;
+   }   
+   
+   /* ---------------------sign up----------------- */
+   .sign-up-form{
+            
+    padding-bottom: 0px!important;
+    padding-top: 20px !important;
+
+}
+
+    }
+
+    @media only screen and (max-width: 600px){
+
+        /* loading */
+        .spinner-border{
+            width: 20px !important;
+            height: 20px !important;
+        }
+        
+        .login-form-container  form >p > .mat-form-field  {
+font-size: 14px;
+        }
+        ::ng-deep .mat-form-field-flex{
+            height:40px;
+           }
+           
+           ::ng-deep .mat-form-field-label{
+               font-size: 11px!important;
+           }
+           .login-button{
+            width: 93%;
+             margin-bottom: 20px;
+           }   
+           .login-logo img{
+            width:70px;
+        }
+
+
+
+        /* --------------------sign up -------------------*/
+        .sign-up-logo{
+            margin-bottom: 15px !important;
+        }
+        .sign-up-logo img{
+            width: 80px;
+        }
+        .sign-up-form > p {
+            margin: 0 auto !important;
+            padding-right: 0px!important;
+            
+        }
+        .sign-up-form > button {
+            width: 80%;
+            margin: auto;
+        }
+
+        .sign-up-form{
+            
+            padding-left: 0px!important;
+            padding-bottom: 10px!important;
+            padding-top: 20px !important;
+
+        }
+       /* .sign-up-form  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-wrapper{
+            margin: 0px!important;
+        }  */
+    }
+    @media only screen and (max-width: 320px){
+
+    .login-form-container{
+        width: 70%;
+    }
+    }

@@ -1,0 +1,144 @@
+<mat-sidenav-container
+  class="sidenav-container bg-white box-shadow-nav"
+  dir="rtl"
+>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="d-flex justify-content-between">
+      <div class="d-flex">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <div class="nav-bar-logo-container">
+          <img
+            width="50px"
+            class="cursor"
+            src="../assets/images/logo.png"
+            routerLink="/home"
+          />
+          <span class="nav-bar-logo-span">faster-time</span>
+        </div>
+        <!-- <p class="px-3" *ngIf="isLogin">اهلا {{userName}}</p> -->
+        <!-- <button *ngIf="isLogin" (click)="logout()">تسجيل الخروج</button> -->
+
+        <!-- <a *ngIf="!isLogin" routerLink="/user/auth">
+          <button></button>
+        </a> -->
+      </div>
+
+      <!-- user name -->
+      <mat-chip-list
+        class="me-4"
+        aria-label="Dog selection"
+        dir="rtl"
+        *ngIf="isLogin"
+      >
+        <mat-chip class="bg-light">
+          <img
+            matChipAvatar
+            src="../../../../../assets/images/user_avatar.jpg"
+            alt="user_avatar"
+          />
+          مرحبا {{ userName }}
+        </mat-chip>
+      </mat-chip-list>
+
+      <div class="d-flex align-items-baseline">
+        <!-- notification -->
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="notifMenu"
+          matTooltip="الاشعارات"
+          aria-label="Example icon-button with a menu"
+          style="height: 29px; width: 29px"
+          (onMenuOpen)="resetNotificationCount()"
+        >
+          <span class="text-white notification-count">{{
+            notificationCount
+          }}</span>
+          <mat-icon>notifications</mat-icon>
+          <!-- *ngIf="notificationCount !== '0'" -->
+        </button>
+
+        <mat-menu #notifMenu="matMenu" style="padding: 0">
+          <div
+            class="alert alert-primary mb-0 d-flex flex-column py-2 px-4 pointer"
+            role="alert"
+            *ngFor="let newOrder of ordersNotifications"
+            routerLink="/orders/orders"
+          >
+            {{ newOrder.notificationMessage }}
+            <span class="me-auto" style="font-size: 11px">{{
+              newOrder.date | date: "d/M/yyyy , h:mm a"
+            }}</span>
+          </div>
+        </mat-menu>
+
+        <!-- cart -->
+        <a class="d-flex cart-icon-container ps-1" routerLink="/home/cart">
+          <div style="font-size:medium">{{ cartItemCount }}</div>
+          <div >
+            <mat-icon
+            matTooltip="عربة المشتريات"
+              class="cart-icon"
+              style="font-size: 26px; padding: 4px 25px 0px 0px"
+              >shopping_cart</mat-icon
+            >
+          </div>
+        </a>
+        <!-- =====================setting===================== -->
+        <div>
+          <button
+            mat-icon-button
+            matTooltip="الاعدادات"
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+          >
+            <mat-icon>settings</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="logout()" *ngIf="isLogin">
+              <mat-icon>exit_to_app</mat-icon>
+              <span>تسجيل الخروج</span>
+            </button>
+            <button mat-menu-item (click)="goToLoginPage()" *ngIf="!isLogin">
+              <mat-icon>face</mat-icon>
+              <span>تسجيل الدخول</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+    </mat-toolbar>
+
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+  <mat-sidenav
+    #drawer
+    class="sidenav width-aside-nav"
+    fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    mode="side"
+    [opened]="panelOpenState"
+  >
+    <mat-toolbar><h1 class="m-auto">القائمة</h1></mat-toolbar>
+    <mat-nav-list class="my-5">
+      <p *ngFor="let item of asideNavItems" class="p-none-margin-mobile">
+        <a
+        [routerLink]="isLogin ? [item.router] : '/user/auth'"
+        routerLinkActive="router-link-active"
+        mat-list-item
+        class="backgroundLinks fixed-hieght-for-item px-lg-4"
+        >
+        <img [src]="item.icon" class="px-2 side-nave-icons"/>
+        <h3 class="pt-3 h2-font-size-mobile">{{ item.name }}</h3>
+          </a
+        >
+      </p>
+      <!-- <a mat-list-item class="backgroundLinks">Link 3</a> -->
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

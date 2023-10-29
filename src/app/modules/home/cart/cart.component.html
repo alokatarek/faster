@@ -1,0 +1,79 @@
+<app-nave-side-bar [cartItemCount]="cartItemCount"></app-nave-side-bar>
+<section *ngIf="this.CartItems.length > 0" class="cart">
+  <!-- products details of cart container -->
+  <div class="products-cart-container m-5">
+    <div
+      class="cart-item my-1"
+      *ngFor="let product of CartItems; let index = index"
+    >
+      <div (click)="openDeleteDialog(index)" class="pointer">
+        <mat-icon class="text-danger delete-font-size">delete_outline</mat-icon>
+      </div>
+      <div class="price-container mx-3">
+        <h1 class="text-primary mb-0" dir="rtl">
+          {{ product.totalPriceOfCartItem }} ج.م
+        </h1>
+
+        <!-- <h1 class="text-primary mb-0" dir="rtl">{{product.item.productPriceSelected}} ج.م</h1> -->
+        <div class="quantity-container m-2 mx-4">
+          <button
+            class="btn btn-primary decrease-button"
+            (click)="decreaseQuantity(index)"
+          >
+            <span class="decrease-span"> -</span>
+          </button>
+          <h1 class="mx-3 my-auto">{{ product.quantity }}</h1>
+          <button
+            class="btn btn-primary increase-button"
+            (click)="increaseQuantity(index)"
+          >
+            <span class="increase-span">+</span>
+          </button>
+        </div>
+        <h1 class="text-primary" dir="rtl">
+          {{ product.item.productPriceSelected }} ج.م
+        </h1>
+      </div>
+      <h1 class="m-3 name-item-cart">
+        {{ product.item.name }}
+      </h1>
+      <img
+        [src]="
+          product.item.mustAddImage
+            ? product.item.ItemImageUrl
+            : product.item.imageURL
+        "
+        class="img-product-cart"
+      />
+    </div>
+  </div>
+
+  <!-- total price container -->
+  <div class="d-flex pb-4">
+    <div
+      class="cart-item my-1 d-flex flex-column col-5 mx-auto checkout-container"
+    >
+      <div class="d-flex total-price-container">
+        <h1 dir="rtl" class="text-center">{{ totalPrice }} ج.م</h1>
+        <h1>اجمالي المبلغ</h1>
+      </div>
+      <button
+        class="btn btn-primary px-5 my-3 button-checkout"
+        (click)="getDeliveryCost()"
+      >
+        الدفع
+      </button>
+    </div>
+  </div>
+</section>
+<!-- <div class="d-flex m-t-5"> -->
+<div
+  *ngIf="CartItems.length === 0"
+  class="d-flex flex-column justify-content-center align-items-center h-100"
+>
+  <!-- <mat-icon class="empty-cart" >remove_shopping_cart</mat-icon> -->
+  <img class="cart-img" src="../../../../assets/images/empty-cart.png" />
+  <h2 dir="rtl" class="text-center my-5">لا توجد عناصر داخل عربة المشتريات!</h2>
+</div>
+
+<!-- </div> -->

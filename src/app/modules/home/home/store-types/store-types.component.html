@@ -1,0 +1,92 @@
+<div class="my-1 col-lg-11 m-auto ms-lg-5 ps-lg-3 my-5 m-mobile">
+  <!-- <h1 class="text-end px-3">أنواع اماكن الشراء</h1> -->
+  <!-- <div
+    id="carouselExampleControlsNoTouching"
+    class="carousel slide"
+    data-bs-touch="false"
+    data-bs-interval="false"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active padding-carousel">
+        <div class="d-flex justify-content-center">
+          <div
+            class="mx-3 col-4 hover-store-type-style pointer"
+            *ngFor="let store of storeTypeData; let index = index"
+            (click)="selectStoreType(store.id)"
+          >
+            <h3 class="text-white text-center h1-carousel">
+              {{ store?.name }}
+            </h3>
+
+            <img
+              [src]="store?.imageURL"
+              class="d-inline-block w-100 border-radius img-carousel"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item padding-carousel">
+        <div class="d-flex justify-content-center">
+          <div
+            class="mx-3 col-4 hover-store-type-style pointer"
+            *ngFor="let store of storeTypeData; let index = index"
+            (click)="selectStoreType(store.id)"
+          >
+            <h3 class="text-white text-center h1-carousel">
+              {{ store?.name }}
+            </h3>
+
+            <img
+              [src]="store?.imageURL"
+              class="d-inline-block w-100 border-radius img-carousel"
+              alt="..."
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-control-prev">
+      <button
+        class="btn-style pointer"
+        type="button"
+        data-bs-target="#carouselExampleControlsNoTouching"
+        data-bs-slide="prev"
+        (click)="getAllStoreTypes('prev')"
+      >
+        <mat-icon>navigate_before</mat-icon>
+      </button>
+    </div>
+    <div class="carousel-control-next">
+      <button
+        class="btn-style pointer"
+        type="button"
+        data-bs-target="#carouselExampleControlsNoTouching"
+        data-bs-slide="next"
+        (click)="getAllStoreTypes('next')"
+      >
+        <mat-icon>navigate_next</mat-icon>
+      </button>
+    </div>
+  </div> -->
+  <div>
+    <owl-carousel-o [options]="customOptions">
+      <ng-container *ngFor="let store of storeTypeData; let index = index">
+        <ng-template carouselSlide>
+          <div class="mx-2" (click)="selectStoreType(store.id)">
+            <h3 class="text-white text-center h1-carousel">
+              {{ store?.name }}
+            </h3>
+            <img
+              [src]="store?.imageURL || noImageStore"
+              class="d-inline-block w-100 border-radius img-carousel"
+              alt="..."
+            />
+          </div>
+        </ng-template>
+      </ng-container>
+    </owl-carousel-o>
+  </div>
+</div>
+
+<!-- <app-store-places [storeTypeId]="storeTypeId"></app-store-places> -->

@@ -1,0 +1,39 @@
+.table-pointer{
+    cursor: pointer;
+}
+
+.table-header {
+    background-color:#51CAF7 !important ;
+    color:white !important;
+}
+
+.table-shadow{
+    box-shadow: 0px 1px 15px #aaa ;
+}
+.table-header th , tbody td{
+    padding-right: 30px;
+}
+
+.disabled {
+    color: gray !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+}
+
+.order-img{
+    width: 20em;
+}
+
+/* modal */
+.modal-header .btn-close{
+    margin: 0px!important;
+}
+
+::ng-deep  .mat-form-field-wrapper {
+    width: 100%;
+}
+
+::ng-deep .descShip .mat-form-field-flex {
+min-height: 150px;
+}  
+

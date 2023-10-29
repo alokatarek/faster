@@ -1,0 +1,145 @@
+<div>
+  <app-store-types
+    (storeTypeId)="onSelectStoreTypeId($event)"
+  ></app-store-types>
+  |
+  <div class="d-flex flex-column white-space-initial">
+    <div class="col-lg-11 m-auto ms-lg-5 ps-lg-3">
+      <h1 class="text-end px-3" *ngIf="dataCount > 0">
+        {{ storePlacesData[0]?.storeTypeName }}
+      </h1>
+      <h1 class="text-center" *ngIf="!dataCount">
+        لا يوجد اماكن شراء لهذا النوع
+      </h1>
+      <!-- <div
+        *ngIf="dataCount"
+        id="carouselExampleControlsNoTouching2"
+        class="carousel slide"
+        data-bs-touch="false"
+        data-bs-interval="false"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active padding-carousel">
+            <div class="d-flex justify-content-center">
+              <div
+                class="mx-3 col-4 hover-store-type-style pointer"
+                *ngFor="let store of storePlacesData; let index = index"
+                (click)="selectStore(store)"
+              >
+                <h3 class="text-white text-center h1-carousel">
+                  {{ store?.name }}
+                </h3>
+
+                <img
+                  [src]="store.imageURL"
+                  class="d-inline-block w-100 border-radius img-carousel"
+                  alt="..."
+                />
+               
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item padding-carousel">
+            <div class="d-flex justify-content-center">
+              <div
+                class="mx-3 col-4 hover-store-type-style pointer"
+                *ngFor="let store of storePlacesData; let index = index"
+                (click)="selectStore(store)"
+              >
+      
+                <h3 class="text-white text-center h1-carousel">
+                  {{ store?.name }}
+                </h3>
+
+                <img
+                  [src]="store.imageURL"
+                  class="d-inline-block w-100 border-radius img-carousel"
+                  alt="..."
+                />
+         
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-control-prev">
+          <button
+            class="btn-style pointer"
+            type="button"
+            data-bs-target="#carouselExampleControlsNoTouching2"
+            data-bs-slide="prev"
+            (click)="getAllStorePlaces('prev')"
+          >
+    
+            <mat-icon>navigate_before</mat-icon>
+          </button>
+        </div>
+        <div class="carousel-control-next">
+          <button
+            class="btn-style pointer"
+            type="button"
+            data-bs-target="#carouselExampleControlsNoTouching2"
+            data-bs-slide="next"
+            (click)="getAllStorePlaces('next')"
+          >
+       
+            <mat-icon>navigate_next</mat-icon>
+          </button>
+        </div>
+      </div> -->
+      <div style="width: 90vw">
+        <owl-carousel-o [options]="customOptions">
+          <ng-container *ngFor="let store of storePlacesData">
+            <ng-template carouselSlide [id]="store.id">
+              <div
+                class="mx-2 d-flex justify-content-center align-items-center flex-column"
+                (click)="selectStore(store)"
+              >
+                <h3 class="text-white text-center h1-carousel w-100">
+                  {{ store?.name }}
+                </h3>
+                <img
+                  [src]="store?.imageURL || noImageStore"
+                  class="d-inline-block w-100 border-radius img-carousel"
+                  alt="..."
+                />
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+
+      <div *ngIf="dataCount" class="mx-3 mt-1 mb-5 margin-mobile-image">
+        <mat-card class="example-card box-shadow-item" dir="rtl">
+          <mat-card-title-group class="d-flex-mobile-item">
+            <div class="d-flex flex-column justify-content-around">
+              <div>
+                <mat-card-title>{{ storePlaceName }}</mat-card-title>
+                <p>
+                  <!-- هذا مطعم مأكولات يه الكلار هذا مطعم مأكولات يه الكلار هذا مطعم
+                  مأكولات يه الكلار هذا مطعم مأكولات يه الكلار هذا مطعم مأكولات
+                  يه الكلار هذا مطعم مأكولات يه الكلار -->
+                  {{ storePlaceDesc === "null" ? "" : storePlaceDesc }}
+                </p>
+              </div>
+              <a [routerLink]="['store-places-details', storePlaceId]">
+                <button
+                  mat-raised-button
+                  style="font-size: 20px"
+                  class="align-self-end h4 px-md-3 py-md-2 btn btn-primary"
+                >
+                  تسوق الان
+                </button>
+              </a>
+            </div>
+            <img mat-card-xl-image [src]="imageSource || noImageStore" />
+          </mat-card-title-group>
+          <!-- <mat-card-content>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
+        </mat-card-content> -->
+        </mat-card>
+
+        <!-- <img [src]="imageSource" width="100%" class="img-border" /> -->
+      </div>
+    </div>
+  </div>
+</div>

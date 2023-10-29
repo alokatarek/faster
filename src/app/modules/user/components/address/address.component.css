@@ -1,0 +1,174 @@
+.container-bg {
+  width: 100vw;
+  height: 100%;
+  background-image: url("../../../../../assets/images/back.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 100%;
+}
+.overlay {
+  height: 100%;
+}
+.overlay::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.7;
+}
+
+.form-address .form-field-style {
+  width: 100%;
+}
+
+.form-address {
+  padding: 50px;
+  border: 4px dashed white;
+  border-radius: 19px;
+  box-shadow: 1px 1px 10px gainsboro;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: white;
+  border-radius: 5px;
+}
+
+::ng-deep .mat-select-value-text {
+  font-size: 18px;
+}
+::ng-deep .mat-form-field-flex {
+  height: 65px;
+}
+::ng-deep .mat-select-placeholder {
+  font-size: 20px;
+}
+.label-font-size {
+  font-size: 20px !important;
+}
+.enter-button,
+.enter-button-map {
+  background-color: #0080ff;
+  color: white;
+  font-size: 20px;
+  width: 100%;
+  padding: 5px 0px;
+}
+.enter-button-map {
+  width: 50%;
+}
+/* for map */
+
+.match-parent {
+  height: 60vh;
+  margin: auto;
+  border: 1px solid gray;
+  border-radius: 8px;
+  background-color: black;
+}
+#map {
+  font-size: larger;
+  color: black;
+}
+
+.coordinates {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  position: absolute;
+  bottom: 40px;
+  left: 10px;
+  padding: 5px 10px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 18px;
+  border-radius: 3px;
+  display: none;
+}
+
+/* for tablet and small devices */
+@media only screen and (max-width: 768px) {
+  .container-bg {
+    height: inherit;
+    padding: 20px 50px 50px;
+  }
+
+  /* map */
+  .flex-tablet-address {
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    font-size: medium;
+  }
+
+  .width-address-tablet {
+    width: 100%;
+  }
+
+  .enter-button,
+  .enter-button-map {
+    padding: 0px 0px;
+  }
+
+  /* form */
+
+  ::ng-deep .mat-select-value-text {
+    font-size: 12px;
+  }
+  ::ng-deep .mat-form-field-flex {
+    height: 40px;
+  }
+  ::ng-deep .mat-select-placeholder {
+    font-size: 12px;
+  }
+
+  .form-address {
+    padding: 30px;
+    margin-top: 30px !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .mobile-map-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .mobile-map-header > div {
+    direction: rtl;
+  }
+}
+
+/*****Ali*******/
+::ng-deep .autocomplete-container .input-container input {
+  text-align: right;
+  font-size: 18px !important;
+  padding: 1.7rem 15px !important;
+  border-radius: 5px !important;
+}
+
+::ng-deep .autocomplete-container .input-container .x {
+  right: auto !important;
+  left: 10px !important;
+}
+
+::ng-deep .autocomplete-container .suggestions-container ul {
+  overflow-x: hidden;
+}
+
+/**********/
+
+/*** MEDia Query to make the image fit different screens ****/
+
+@media (max-width: 1024px) {
+  .container-bg {
+    background-position: 60%;
+  }
+}
+
+@media (max-width: 767px) {
+  .container-bg {
+    background-position: 40%;
+  }
+}

@@ -1,0 +1,108 @@
+<div class="overlay">
+  <div class="container-bg d-flex flex-tablet-address">
+    <app-spinner *ngIf="isLoading"></app-spinner>
+    <!-- for map -->
+
+    <!-- <div class="py-3 col-lg-6 m-auto width-address-tablet">
+    <div class="mobile-map-header text-center">
+
+      <h1 class="text-center text-white d-inline-block">
+        حدد عنوانك من خلال الخريطة
+      </h1>
+    </div>
+    <div
+      class="map match-parent m-auto mx-md-4"
+      id="map"
+      (change)="onDragEnd()"
+    ></div>
+  </div> -->
+    <div class="m-auto col-4 width-address-tablet">
+      <form class="form-address mx-md-4">
+        <p dir="rtl">
+          <mat-form-field class="form-field-style" appearance="outline">
+            <!-- <mat-label class="bg-white label-font-size">المحافظة</mat-label> -->
+            <mat-select
+              placeholder="اختر المحافظة"
+              (selectionChange)="setStateID($event)"
+            >
+              <mat-option
+                value="option1"
+                *ngFor="let option of stateDropdownData"
+                [value]="option.id"
+                >{{ option.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p dir="rtl">
+          <mat-form-field class="form-field-style" appearance="outline">
+            <mat-select
+              placeholder="اختر المدينة"
+              (selectionChange)="setCityID($event)"
+              [disabled]="!isStateID"
+              #cityId
+            >
+              <mat-option
+                value="option1"
+                *ngFor="let option of cityDropdownData"
+                [value]="option.id"
+                >{{ option.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <!-- <p dir="rtl">
+          <mat-form-field class="form-field-style" appearance="outline">
+            <mat-select
+              placeholder="اختر المنطقة"
+              [disabled]="!isCityID"
+              (selectionChange)="setAreaID($event)"
+            >
+              <mat-option
+                value="option1"
+                *ngFor="let option of areaDropdownData"
+                [value]="option.id"
+                >{{ option.name }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </p> -->
+        <div class="ng-autocomplete w-100 mb-4">
+          <ng-autocomplete
+            [data]="areaDropdownData"
+            [searchKeyword]="keyword"
+            placeholder="اختر المنطقة"
+            (selected)="selectEvent($event)"
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate"
+            (inputCleared)="clearInput($event)"
+            [customFilter]="customFilter"
+            [disabled]="
+              cityId.value == null || cityId.value == '' || cityId.value == ''
+            "
+          >
+          </ng-autocomplete>
+
+          <ng-template #itemTemplate let-item>
+            <a [innerHTML]="item.name"></a>
+          </ng-template>
+
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="'غير موجود'"></div>
+          </ng-template>
+        </div>
+        <div class="example-button-row">
+          <button
+            mat-button
+            class="enter-button"
+            [disabled]="!isAreaID"
+            type="button"
+            (click)="navigateToHomePage()"
+          >
+            دخول
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

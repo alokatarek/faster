@@ -1,0 +1,31 @@
+<div class=" my-1 mx-4 col-lg-11 m-auto ms-lg-5 ps-lg-3 mt-5 ">
+<div id="carouselExampleInterval" class="carousel slide " data-bs-ride="carousel">
+    <div class="carousel-inner" >
+      <div  class="carousel-item active ads-style" [attr.data-bs-interval]="firstAd?.watchPeriodInSeconds * 1000" (click)="goToStoreOrItemDetails(firstAd)">
+        <img [src]=" firstAd?.imageURL || noImagePanner " width="90%"   class="d-block w-100 ads-style"  alt="...">
+        <div class="carousel-caption d-flex">
+          <h3 class="bg-white p-2 text-dark bg-opacity-50 text-black m-auto" >{{firstAd?.notes === 'null' ? '' : firstAd?.notes}}</h3>
+      </div>
+      </div>
+      
+      <div class="carousel-item ads-style" *ngFor="let ad of adsData" [attr.data-bs-interval]="ad.watchPeriodInSeconds * 1000" (click)="goToStoreOrItemDetails(ad)">
+        <img [src]="ad?.isValidURL ? ad?.imageURL : noImagePanner " class="d-block w-100 ads-style"  width="90%"   alt="...">
+        <div class="carousel-caption d-flex">
+          <h3 class="bg-white p-2 text-dark bg-opacity-50 m-auto" >{{ad?.notes === 'null' ? '' : ad?.notes}}</h3>
+        </div>
+      </div>
+      
+    </div>
+
+    
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,302 @@
+<app-nave-side-bar> </app-nave-side-bar>
+<div class="container my-5" dir="rtl">
+  <h1 class="text-end text-dark mt-3">الطلبات</h1>
+  <div class="table-responsive table-shadow">
+    <table class="table table-striped m-0" *ngIf="orderDataCount > 0">
+      <thead class="table-header">
+        <tr>
+          <th scope="col">كود الطلب</th>
+          <th scope="col">نوع الطلب</th>
+          <th scope="col">التاريخ</th>
+          <th scope="col">الوقت</th>
+          <th scope="col">الاجمالي</th>
+          <th scope="col">الحالة</th>
+          <th scope="col">عرض</th>
+          <th scope="col">حذف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of ordersData; let index = index">
+          <td>
+            <span>{{ index + 1 }}</span>
+          </td>
+          <td>
+            <span>{{ order.orderType === 1 ? "طلب نقل" : "طلب توصيل" }}</span>
+          </td>
+          <td>
+            <span>{{ order.date | date : "dd/MM/yyy" }}</span>
+          </td>
+          <td>
+            <span>{{ order.time | date : "h:mm:ss a" }}</span>
+          </td>
+          <td>
+            <span>{{ order.net }}</span>
+          </td>
+          <td>
+            <span>{{ order.orderStatusName }}</span>
+          </td>
+
+          <td>
+            <mat-icon data-bs-toggle="modal" data-bs-target="#viewOrderItemsModalId" [matTooltip]="'عرض منتجات الطلب'"
+              class="text-info table-pointer" (click)="getOrderItems(order)"
+              *ngIf="order.orderType !== 1">remove_red_eye</mat-icon>
+            <mat-icon data-bs-toggle="modal" data-bs-target="#viewOrderDetailsModalId" [matTooltip]="'عرض بيانات الطلب'"
+              class="text-info" (click)="getOrderItems(order)" *ngIf="order.orderType === 1">remove_red_eye</mat-icon>
+          </td>
+          <td>
+            <mat-icon data-bs-toggle="modal" data-bs-target="#deleteOrderModalId" (click)="setOrderDeletedId(order.id)"
+              class="text-danger table-pointer" [class.disabled]="!order.canEditAndDeleteOrder" [matTooltip]="'حذف'"
+              aria-label="Button that displays a tooltip with a custom message">delete_outline</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="my-5" style="opacity: 0">test</div>
+  <div class="d-flex flex-column align-items-center" *ngIf="orderDataCount === 0">
+    <img class="order-img" src="../../../../../assets/images/box.png" />
+    <h2>لا يوجد طلبات</h2>
+  </div>
+</div>
+<!-- view order items Modal -->
+<div class="modal fade" id="viewOrderItemsModalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" dir="rtl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="staticBackdropLabel">منتجات الطلب</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center align-items-center">
+          <mat-spinner *ngIf="!orderItemsData?.getOrderItems_StorePlace"></mat-spinner>
+        </div>
+        <div class="table-responsive table-shadow" dir="rtl" *ngIf="orderItemsData?.getOrderItems_StorePlace" >
+          <table class="table table-bordered m-0">
+            <thead class="table-header">
+              <tr>
+                <th scope="col">الصنف</th>
+                <th scope="col">الحجم</th>
+                <th scope="col">الكمية</th>
+                <th scope="col">الاجمالي</th>
+                <th scope="col">الصورة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let store of orderItemsData?.getOrderItems_StorePlace; let index = index">
+              <tr style="background-color: #0080FF;">
+                <td colspan="5">
+                  {{ store.storeName }}  {{ store.storeAddress }}
+                </td>
+              </tr>
+              <tr *ngFor="let item of store.getOrderItems_Items">
+                <td>{{ item.itemName }}</td>
+                <td>{{ item.itemSize }}</td>
+                <td>{{ item.qyt }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                  <img [src]="item.imageURL" *ngIf="item.imageURL" (click)="showImage(item.imageURL)" width="100" height="70" [alt]="'صورة ' + item.itemName "/>
+      
+                <ng-image-fullscreen-view
+                    [images]="imageObject"
+                    [show]="showFlag"
+                    (close)="closeEventHandler()"></ng-image-fullscreen-view>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <div class="row py-3" dir="rtl">
+          <div class="col-6">
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>المدفوع</mat-label>
+              <input
+                readonly
+                matInput
+                placeholder="المدفوع"
+                [(ngModel)]="payedUp"
+              />
+            </mat-form-field>
+         </div>
+          <div class="col-6">
+             <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>اجمالي اسعار الاصناف</mat-label>
+              <input
+                readonly
+                matInput
+                placeholder="الاجمالي"
+                [(ngModel)]="totalItems"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-6">
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+             <mat-label>سعر التوصيل</mat-label>
+             <input
+               readonly
+               matInput
+               placeholder="سعر التوصيل"
+               [(ngModel)]="totalDeliveryCost"
+             />
+           </mat-form-field>
+         </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          اغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- view order details Modal -->
+
+<div class="modal fade" id="viewOrderDetailsModalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable" dir="rtl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="staticBackdropLabel">منتجات الطلب</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="shippingForm" [formGroup]="shippingForm">
+          <div class="d-flex">
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>أسم العميل</mat-label>
+              <input readonly matInput placeholder="أسم العميل" formControlName="name" />
+            </mat-form-field>
+
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>رقم تليفون</mat-label>
+              <input readonly matInput placeholder="رقم تليفون" formControlName="shippingCustomerPhone" />
+            </mat-form-field>
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>العنوان من</mat-label>
+              <input readonly matInput placeholder="العنوان من" formControlName="addressFrom" />
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex">
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>حالة الطلب</mat-label>
+              <input readonly matInput placeholder="حالة الطلب" formControlName="orderStatusName" />
+            </mat-form-field>
+
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>نوع الطلب</mat-label>
+              <input readonly matInput placeholder="نوع الطلب" formControlName="orderType" />
+            </mat-form-field>
+
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>العنوان الي</mat-label>
+              <input readonly matInput placeholder="العنوان الي" formControlName="addressTo" />
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex flex-column ">
+            <mat-form-field class="d-flex flex-grow-1 mx-1" appearance="outline">
+              <mat-label>ملاحظات</mat-label>
+              <input readonly matInput placeholder="ملاحظات" formControlName="notes" />
+            </mat-form-field>
+          </div>
+
+          <div class="d-flex flex-column ">
+            <h4 class="my-2">حجم المنقولات</h4>
+            <div>
+              <mat-form-field class="mx-1 flex-grow-1" appearance="outline">
+                <mat-label>الطول (cm)</mat-label>
+                <input readonly type="number" matInput placeholder="الطول" formControlName="lengthOfShipment" />
+              </mat-form-field>
+
+              <mat-form-field class="mx-1 flex-grow-1" appearance="outline">
+                <mat-label>العرض (cm)</mat-label>
+                <input readonly type="number" matInput placeholder="العرض" formControlName="widthOfShipment" />
+              </mat-form-field>
+
+              <mat-form-field class="mx-1 flex-grow-1" appearance="outline">
+                <mat-label> الارتفاع (cm)</mat-label>
+                <input readonly type="number" matInput placeholder="الارتفاع" formControlName="heightOfShipment" />
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column">
+            <mat-form-field class="descShip" appearance="outline">
+              <mat-label>وصف المنقولات </mat-label>
+              <textarea matInput rows="9" cols="10" placeholder="وصف المنقولات "
+                formControlName="shippmentDesc"></textarea>
+            </mat-form-field>
+          </div>
+          <hr class="w-100" />
+          <div class="d-flex">
+            <mat-form-field class="flex-grow-1 mx-1" appearance="outline">
+              <mat-label>السعر</mat-label>
+              <input readonly type="number" matInput placeholder="السعر" formControlName="total" />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="flex-grow-1 mx-1">
+              <mat-label>نوع المركبة المطلوبة للنقل </mat-label>
+              <mat-select readonly formControlName="vehiclesTypesId">
+                <mat-option *ngFor="let option of vehicleTypesList" [value]="option.id">{{ option.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="d-flex" *ngIf="selectedOrder_StatusID === 4">
+            <button class="flex-grow-1 my-3 mx-1" type="button" mat-raised-button color="primary"
+              [disabled]="disableAccept" (click)="acceptShipmentOrder(true)" data-bs-dismiss="modal">
+              موافقة
+            </button>
+            <button class="flex-grow-1 my-3 mx-1 bg-danger" type="button" mat-raised-button color="primary"
+              (click)="orderRejected = true">
+              رفض
+            </button>
+          </div>
+        </form>
+        <div class="d-flex flex-column animate__animated animate__fadeInDown" *ngIf="orderRejected">
+          <mat-form-field class="descShip" appearance="outline">
+            <mat-label>برجاء كتابة سبب الرفض</mat-label>
+            <textarea matInput rows="9" cols="10" placeholder="سبب الرفض" [(ngModel)]="rejectReason"></textarea>
+          </mat-form-field>
+          <button class="flex-grow-1 my-3 mx-1 bg-danger" type="button" mat-raised-button color="primary"
+            (click)="checkBeforeReject()" data-bs-dismiss="modal">
+            تأكيد الرفض
+          </button>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          اغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete order Modal -->
+<div class="modal fade" id="deleteOrderModalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" dir="rtl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="staticBackdropLabel">حذف الطلب</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h2>هل تريد حذف الطلب ؟</h2>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteOrder()" data-bs-dismiss="modal">
+          حذف
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          اغلاق
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

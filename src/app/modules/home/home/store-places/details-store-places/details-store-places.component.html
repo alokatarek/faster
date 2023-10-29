@@ -1,0 +1,357 @@
+<app-nave-side-bar [cartItemCount]="cartItemCount"> </app-nave-side-bar>
+
+<section>
+  <!-- ***************************************************** -->
+  <!-- =====================cover=========================== -->
+  <!-- ***************************************************** -->
+  <div>
+    <img [src]="storePlaceDetails?.imageURL" class="image-style-cover" />
+  </div>
+  <!-- store type details -->
+  <div class="d-flex col-4">
+    <div class="">
+      <img class="image-logo-store" [src]="storePlaceDetails?.logoURL" />
+    </div>
+    <div class="mx-2">
+      <h1 class="mb-0 h1-font-size">{{ storePlaceDetails?.name }}</h1>
+      <div class="d-flex">
+        <mat-icon> location_on</mat-icon> {{ storePlaceDetails?.stateName }} /
+        {{ storePlaceDetails?.cityName }} / {{ storePlaceDetails?.areaName }}
+      </div>
+    </div>
+  </div>
+
+  <!-- ***************************************************** -->
+  <!-- =====================categories====================== -->
+  <!-- ***************************************************** -->
+
+  <div class="col-lg-11 m-auto ms-lg-5 ps-lg-3 m-mobile mb-3">
+    <h1 class="text-end px-3 mb-0">المجموعات</h1>
+    <!-- <div
+      id="carouselExampleControlsNoTouching"
+      class="carousel slide"
+      data-bs-touch="false"
+      data-bs-interval="false"
+    >
+      <div class="carousel-inner">
+        <div class="carousel-item active padding-carousel">
+          <div class="d-flex justify-content-center">
+            <div
+              class="mx-3 col-4 hover-store-type-style pointer m-mobile-cat"
+              *ngFor="let category of categoriesData; let index = index"
+              (click)="
+                getSelectCategory(category.id); setCatSelectedName(category.name)
+              "
+            >
+              <h3 class="text-white text-center h1-carousel">
+                {{ category.name }}
+              </h3>
+
+              <img
+                [src]="category.imageURL"
+                class="d-inline-block w-100 border-radius img-carousel"
+                alt="..."
+              />
+        
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item padding-carousel">
+          <div class="d-flex justify-content-center">
+            <div
+              class="mx-3 col-4 hover-store-type-style pointer m-mobile-cat"
+              *ngFor="let category of categoriesData; let index = index"
+              (click)="
+                getSelectCategory(category.id); setCatSelectedName(category.name)
+              "
+            >
+          
+              <h3 class="text-white text-center h1-carousel">
+                {{ category.name }}
+              </h3>
+
+              <img
+                [src]="category.imageURL"
+                class="d-inline-block w-100 border-radius img-carousel"
+                alt="..."
+              />
+       
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-control-prev">
+        <button
+          class="btn-style pointer"
+          type="button"
+          data-bs-target="#carouselExampleControlsNoTouching"
+          data-bs-slide="prev"
+          (click)="getAllCategories('prev')"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+      </div>
+      <div class="carousel-control-next">
+        <button
+          class="btn-style pointer"
+          type="button"
+          data-bs-target="#carouselExampleControlsNoTouching"
+          data-bs-slide="next"
+          (click)="getAllCategories('next')"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+      </div>
+    </div> -->
+
+    <owl-carousel-o [options]="customOptions">
+      <ng-template carouselSlide *ngFor="let category of categoriesData">
+        <div
+          (click)="
+            getSelectCategory(category.id); setCatSelectedName(category.name)
+          "
+          style="cursor: pointer"
+        >
+          <h3 class="text-white text-center h1-carousel">
+            {{ category.name }}
+          </h3>
+          <img [src]="category?.imageURL" alt="" class="img-carousel" />
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </div>
+
+  <!-- ***************************************************** -->
+  <!-- =====================products======================== -->
+  <!-- ***************************************************** -->
+  <h1 class="text-center mt-4 mb-0">{{ catSelectedName }} منتجات</h1>
+
+  <div class="products-container col-12 pt-0">
+    <div class="spinner" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <div
+        class="card-container d-flex flex-column justify-content-end"
+        *ngFor="let product of productsData; let index = index"
+      >
+        <!-- image -->
+        <a>
+          <img
+            class="card-image"
+            [src]="
+              product.imageURL
+                ? product.imageURL
+                : '../../../../../../assets/images/img-temp.png'
+            "
+          />
+        </a>
+        <!-- product info -->
+        <div class="card-info">
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+              <h1>{{ product.name }}</h1>
+              <h1 class="card-price">
+                {{ product.productPriceSelected }} <span>ج.م</span>
+              </h1>
+              <!-- <h1 class="card-price" *ngIf="product.prices.length > 1 &&productSizeId ===2 && product.id === productId">
+            {{product.prices[1].price}}
+          </h1>
+          <h1 class="card-price" *ngIf="product.prices.length > 2&&productSizeId ===3  && product.id === productId">
+            {{product.prices[2].price}}
+          </h1> -->
+            </div>
+            <p>
+              {{ product.description === "null" ? "" : product.description }}
+            </p>
+            <!-- <h2 *ngIf="product.prices.length > 1">المقاس</h2> -->
+            <mat-radio-group
+              *ngIf="product.prices.length > 1"
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [value]="product.productSizeSelected"
+            >
+              <mat-radio-button
+                *ngFor="let price of product.prices"
+                class="example-radio-button"
+                [value]="price.sizesID"
+                color="primary"
+                (click)="setProductSizeRadioButton(price, index)"
+                (input)="setProductSizeRadioButton(price, index)"
+              >
+                {{ price.sizeName }}
+              </mat-radio-button>
+
+              <!-- <mat-radio-button
+              class="example-radio-button"
+              [value]="1"
+              color="primary"
+              (click)="setProductSizeRadioButton(1, index)"
+              (input)="setProductSizeRadioButton(1, index)"
+            >
+              صغير
+            </mat-radio-button>
+            <mat-radio-button
+              class="example-radio-button"
+              [value]="2"
+              color="primary"
+              (click)="setProductSizeRadioButton(2, index)"
+              (input)="setProductSizeRadioButton(2, index)"
+            >
+              متوسط
+            </mat-radio-button>
+            <mat-radio-button
+              class="example-radio-button"
+              [value]="3"
+              *ngIf="product.prices.length > 2"
+              color="primary"
+              (click)="setProductSizeRadioButton(3, index)"
+              (input)="setProductSizeRadioButton(3, index)"
+            >
+              كبير
+            </mat-radio-button> -->
+            </mat-radio-group>
+          </div>
+        </div>
+        <!-- product button -->
+        <div class="d-flex">
+          <button
+            class="card-button py-2 cursor-pointer"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            (click)="setItemCartIndex(index, product.mustAddImage)"
+          >
+            اضافة الى السلة
+          </button>
+          <!-- <div
+          *ngIf="product.isDisabled"
+          class="card-button text-center bg-warning text-dark py-2 cursor-pointer"
+        >
+          مضاف إلى السلة
+        </div> -->
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- *********************************************** -->
+  <!-- ------------------pagination------------------- -->
+  <!-- *********************************************** -->
+
+  <div
+    class="my-2 d-flex justify-content-center text-center"
+    *ngIf="productsData?.length > 0 && !isLoading"
+  >
+    <!-- {{ h1 }} بسبب ان لما بختار 5 بييجي صف واحد بس فضطريت اعمل  -->
+    <h1
+      *ngFor="
+        let item of [1]
+          | paginate
+            : {
+                itemsPerPage: 20,
+                currentPage: currentPage,
+                totalItems: productDataCount
+              }
+      "
+    ></h1>
+
+    <pagination-controls
+      class="my-paginations"
+      [responsive]="true"
+      previousText="&lsaquo;"
+      nextLabel=""
+      previousLabel=""
+      (pageChange)="pageChanged($event)"
+      class="float-right"
+    ></pagination-controls>
+  </div>
+
+  <div></div>
+</section>
+
+<!-- cart Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <!-- photo  -->
+        <div
+          class="d-flex justify-content-center flex-column pb-2"
+          *ngIf="isMustAddImage"
+        >
+          <div class="d-flex justify-content-center image-container">
+            <div
+              (click)="deleteImage()"
+              class="delete-image text-danger"
+              *ngIf="imagePath !== '../../../../../assets/images/img-temp.png'"
+            >
+              <mat-icon>delete_outline</mat-icon>
+            </div>
+            <input
+              type="file"
+              hidden
+              (change)="checkImage($event)"
+              (click)="clearOldImageFromEvent($event)"
+              #imageInput
+              class="m-auto image-width"
+            />
+            <img
+              class="image-border"
+              width="120px"
+              height="120px"
+              [src]="imagePath"
+              (click)="imageInput.click()"
+            />
+          </div>
+          <span class="text-danger text-center"
+            >يجب اضافة صورة لهذا المنتج</span
+          >
+        </div>
+        <h1 class="text-center">الكمية</h1>
+        <div class="price-container mx-3">
+          <div class="quantity-container m-2 mx-4">
+            <button
+              class="btn btn-primary decrease-button"
+              (click)="decreaseQuantity()"
+            >
+              <span class="decrease-span"> -</span>
+            </button>
+            <h1 class="mx-3 my-auto">{{ itemQuantity }}</h1>
+            <button
+              class="btn btn-primary increase-button"
+              (click)="increaseQuantity()"
+            >
+              <span class="increase-span">+</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" dir="rtl">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="resetQuantityCounter()"
+        >
+          الغاء
+        </button>
+        <button
+          id="x"
+          type="button"
+          class="btn btn-primary"
+          [disabled]="isMustAddImage && !isAddImage"
+          (click)="addItemToCart()"
+          data-bs-dismiss="modal"
+        >
+          اضافة
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

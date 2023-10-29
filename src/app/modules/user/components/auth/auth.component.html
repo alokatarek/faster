@@ -1,0 +1,167 @@
+<app-nave-side-bar></app-nave-side-bar>
+<section class="login-container">
+  <div class="login-effects d-flex">
+    <div class="m-auto login-form-container d-flex" *ngIf="isLogin">
+      <form [formGroup]="loginForm" class="login-form py-5 ps-3">
+        <div class="login-logo d-flex m-auto pe-3 mb-4">
+          <img src="../../../../../assets/images/logo.png" />
+        </div>
+
+        <div class="d-flex col-12 mb-2">
+          <!-- ----error alert for login ----------  -->
+          <div
+            class="alert alert-danger col-11 text-center"
+            role="alert"
+            *ngIf="isDisplayErrorAlert"
+          >
+            {{ loginErrorMessage }}
+          </div>
+
+          <!-- -----------------loading------- -->
+          <div
+            class="spinner-border text-primary m-auto"
+            role="status"
+            *ngIf="isLoading"
+          >
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </div>
+        <p class="pe-3" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>اسم المستخدم</mat-label>
+            <input matInput required="true" formControlName="userName" />
+          </mat-form-field>
+        </p>
+        <p class="pe-3" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>كلمة السر</mat-label>
+            <input
+              type="password"
+              matInput
+              required="true"
+              formControlName="password"
+            />
+          </mat-form-field>
+        </p>
+        <button
+          type="submit"
+          class="btn btn-primary login-button"
+          (click)="submitLogin()"
+        >
+          تسجيل الدخول
+        </button>
+        <div class="sign-up-mobile text-primary justify-content-center">
+          <p class="pointer px-2" (click)="isLoginToggle()">اشتراك</p>
+          <p>هل لديك حساب ؟</p>
+        </div>
+      </form>
+
+      <div class="d-flex flex-column bg-primary w-50 text-white">
+        <div class="d-flex flex-column m-auto">
+          <h1 class="text-end">مرحبا بكم فى تسجيل الدخول</h1>
+          <h2 class="text-end">ليس لديك حساب ؟</h2>
+          <button
+            class="btn btn-outline-light sign-up-button"
+            (click)="isLoginToggle()"
+          >
+            اشتراك
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="m-auto login-form-container d-flex" *ngIf="!isLogin">
+      <form
+        [formGroup]="signUpForm"
+        class="sign-up-form d-flex flex-wrap col-12 py-5 ps-3"
+      >
+        <!-- ----error alert for signup ----------  -->
+        <div
+        dir="rtl"
+          class="alert alert-danger col-11 text-center"
+          role="alert"
+          *ngIf="isDisplayErrorAlertForSignUp"
+          [innerHTML]="signUpErrorMessage"
+        >
+          <!-- {{ signUpErrorMessage }} -->
+        </div>
+             <!-- -----------------loading------- -->
+             <div
+             class="spinner-border text-primary m-auto"
+             role="status"
+             *ngIf="isLoading"
+           >
+             <span class="visually-hidden">Loading...</span>
+           </div>
+        <div class="sign-up-logo d-flex m-auto pe-3 mb-4 col-12">
+          <img src="../../../../../assets/images/logo.png" />
+        </div>
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>اسم المستخدم</mat-label>
+            <input matInput required="true" formControlName="userName" />
+          </mat-form-field>
+        </p>
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>الاسم بالكامل</mat-label>
+            <input matInput required="true" formControlName="name" />
+          </mat-form-field>
+        </p>
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>البريد الالكتروني</mat-label>
+            <input
+              matInput
+              type="email"
+              required="true"
+              formControlName="email"
+            />
+          </mat-form-field>
+        </p>
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>كلمة المرور</mat-label>
+            <input
+              matInput
+              type="password"
+              required="true"
+              formControlName="password"
+            />
+          </mat-form-field>
+        </p>
+
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>الهاتف</mat-label>
+            <input
+              type="tel"
+              matInput
+              required="true"
+              formControlName="phone"
+            />
+          </mat-form-field>
+        </p>
+
+        <p class="pe-3 col-lg-6" dir="rtl">
+          <mat-form-field appearance="outline">
+            <mat-label>العنوان</mat-label>
+            <input matInput required="true" formControlName="address" />
+          </mat-form-field>
+        </p>
+        <button
+          type="submit"
+          class="btn btn-primary login-button"
+          (click)="submitSignUp()"
+        >
+          اشترك
+        </button>
+        <div
+          class="back-to-login mt-2 col-12 text-primary justify-content-center"
+        >
+          <p class="pointer px-2" (click)="isLoginToggle()">تسجيل الدخول</p>
+          <p>لديك حساب بالفعل ؟</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

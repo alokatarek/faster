@@ -1,0 +1,71 @@
+<!-- 
+<div class="col-6">
+<p-carousel [value]="x" [numVisible]="3" [numScroll]="3" [circular]="false" [responsiveOptions]="responsiveOptions">
+  <ng-template pTemplate="header">
+      <h5>Basic</h5>
+  </ng-template>
+  <ng-template let-product pTemplate="item">
+      <div class="product-item">
+          <div class="product-item-content">
+              <div class="mb-3">
+                  <img src="../assets/images/logo.png" class="product-image" />
+              </div>
+              <div>
+                  <h4 class="mb-1">name</h4>
+                  <h6 class="mt-0 mb-3">DD</h6>
+                  <span >ANYTHING</span>
+                  <div class="car-buttons mt-5">
+                    <button>SDFSDF</button>
+                    <button>SDFSDF</button>
+                    <button>SDFSDF</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </ng-template>
+</p-carousel>
+</div> -->
+<!-- <mat-sidenav-container  class="sidenav-container bg-white box-shadow-nav" dir="rtl">
+
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        >
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+
+              </button>
+              <div class="">
+              <img width="50px" class="cursor" src="../assets/images/logo.png" routerLink="/"/>
+      <span style="font-size: 12px;">faster-time</span>
+    </div>
+    </mat-toolbar>
+
+    <router-outlet>
+
+    </router-outlet>
+
+
+    
+  </mat-sidenav-content>
+  <mat-sidenav #drawer class="sidenav width-aside-nav " fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      mode="side"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar><h1 class="m-auto">القائمة</h1></mat-toolbar>
+    <mat-nav-list class="my-5">
+      <p *ngFor="let item of asideNavItems" class="p-none-margin-mobile">
+      <a  [routerLink]="[item.router]" mat-list-item class="backgroundLinks fixed-hieght-for-item px-lg-4"><h2 class="pt-3 h2-font-size-mobile">{{item.name}}</h2></a>
+    </p>
+    
+    </mat-nav-list>
+  </mat-sidenav>
+
+</mat-sidenav-container> -->
+
+<router-outlet></router-outlet>
