@@ -88,6 +88,28 @@
   display: none;
 }
 
+/*****Ali*******/
+::ng-deep .autocomplete-container .input-container input {
+  text-align: right;
+  font-size: 18px !important;
+  padding: 1.7rem 15px !important;
+  border-radius: 5px !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+}
+
+::ng-deep .autocomplete-container .input-container .x {
+  right: auto !important;
+  left: 10px !important;
+}
+
+::ng-deep .autocomplete-container .suggestions-container ul {
+  overflow-x: hidden;
+}
+
+/**********/
+
+/*** MEDia Query to make the image fit different screens ****/
+
 /* for tablet and small devices */
 @media only screen and (max-width: 768px) {
   .container-bg {
@@ -129,6 +151,10 @@
     padding: 30px;
     margin-top: 30px !important;
   }
+  ::ng-deep .autocomplete-container .input-container input {
+    font-size: 12px !important;
+    padding: 10px !important;
+  }
 }
 @media only screen and (max-width: 600px) {
   .mobile-map-header {
@@ -139,27 +165,6 @@
     direction: rtl;
   }
 }
-
-/*****Ali*******/
-::ng-deep .autocomplete-container .input-container input {
-  text-align: right;
-  font-size: 18px !important;
-  padding: 1.7rem 15px !important;
-  border-radius: 5px !important;
-}
-
-::ng-deep .autocomplete-container .input-container .x {
-  right: auto !important;
-  left: 10px !important;
-}
-
-::ng-deep .autocomplete-container .suggestions-container ul {
-  overflow-x: hidden;
-}
-
-/**********/
-
-/*** MEDia Query to make the image fit different screens ****/
 
 @media (max-width: 1024px) {
   .container-bg {
