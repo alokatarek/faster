@@ -271,6 +271,7 @@
   border-radius: 50%;
   color: #000;
   font-size: 18px;
+  margin-top: 20px;
 }
 
 .spinner {
@@ -287,4 +288,13 @@
 
 mat-spinner {
   margin: auto;
+}
+
+@media (max-width: 767px) {
+  ::ng-deep .owl-prev span,
+  ::ng-deep .owl-next span {
+    width: 35px !important;
+    height: 35px !important;
+    line-height: 35px !important;
+  }
 }

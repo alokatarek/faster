@@ -86,7 +86,8 @@
           </button>
         </div>
       </div> -->
-      <div style="width: 90vw">
+
+      <!-- <div style="width: 90vw">
         <owl-carousel-o [options]="customOptions">
           <ng-container *ngFor="let store of storePlacesData">
             <ng-template carouselSlide [id]="store.id">
@@ -106,21 +107,66 @@
             </ng-template>
           </ng-container>
         </owl-carousel-o>
+      </div> -->
+
+      <div style="width: 90vw; margin: auto">
+        <owl-carousel-o [options]="customOptions">
+          <ng-template carouselSlide *ngFor="let store of storePlacesData">
+            <div
+              class="mx-2 d-flex justify-content-center align-items-center flex-column"
+              (click)="selectStore(store)"
+            >
+              <h3 class="text-white text-center h1-carousel w-100">
+                {{ store?.name }}
+              </h3>
+              <img
+                [src]="store?.imageURL || noImageStore"
+                class="d-inline-block w-100 border-radius img-carousel"
+                alt="..."
+              />
+            </div>
+          </ng-template>
+        </owl-carousel-o>
       </div>
 
-      <div *ngIf="dataCount" class="mx-3 mt-1 mb-5 margin-mobile-image">
+      <!-- <div *ngIf="dataCount" class="mx-3 mt-1 mb-5 margin-mobile-image">
         <mat-card class="example-card box-shadow-item" dir="rtl">
           <mat-card-title-group class="d-flex-mobile-item">
-            <div class="d-flex flex-column justify-content-around">
+            <div class="specific-store">
               <div>
                 <mat-card-title>{{ storePlaceName }}</mat-card-title>
                 <p>
-                  <!-- هذا مطعم مأكولات يه الكلار هذا مطعم مأكولات يه الكلار هذا مطعم
-                  مأكولات يه الكلار هذا مطعم مأكولات يه الكلار هذا مطعم مأكولات
-                  يه الكلار هذا مطعم مأكولات يه الكلار -->
                   {{ storePlaceDesc === "null" ? "" : storePlaceDesc }}
                 </p>
+
+                <a [routerLink]="['store-places-details', storePlaceId]">
+                  <button
+                    mat-raised-button
+                    style="font-size: 20px"
+                    class="align-self-end h4 px-md-3 py-md-2 btn btn-primary"
+                  >
+                    تسوق الان
+                  </button>
+                </a>
               </div>
+
+              <div class="card-image">
+                <img mat-card-xl-image [src]="imageSource || noImageStore" />
+              </div>
+            </div>
+          </mat-card-title-group>
+        </mat-card>
+      </div> -->
+
+      <div class="card container mt-4 mb-3" [dir]="'rtl'" *ngIf="dataCount">
+        <div class="card-body specific-store">
+          <div class="store-content">
+            <h3 class="card-title">{{ storePlaceName }}</h3>
+            <p>
+              {{ storePlaceDesc === "null" ? "" : storePlaceDesc }}
+            </p>
+
+            <div class="shop-now-btn">
               <a [routerLink]="['store-places-details', storePlaceId]">
                 <button
                   mat-raised-button
@@ -131,14 +177,16 @@
                 </button>
               </a>
             </div>
-            <img mat-card-xl-image [src]="imageSource || noImageStore" />
-          </mat-card-title-group>
-          <!-- <mat-card-content>
-          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally bred for hunting.
-        </mat-card-content> -->
-        </mat-card>
+          </div>
 
-        <!-- <img [src]="imageSource" width="100%" class="img-border" /> -->
+          <div class="card-image">
+            <img
+              mat-card-xl-image
+              [src]="imageSource || noImageStore"
+              draggable="false"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>

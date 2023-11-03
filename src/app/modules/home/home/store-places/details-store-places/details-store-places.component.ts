@@ -55,7 +55,7 @@ export class DetailsStorePlacesComponent implements OnInit {
     navText: ['<span><</span>', '<span>></span>'],
     responsive: {
       0: {
-        items: 1,
+        items: 2,
       },
       400: {
         items: 2,
