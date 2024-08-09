@@ -85,6 +85,7 @@
   color: white;
   border-color: white;
   font-size: large;
+  border: 0 !important;
 }
 .card-image {
   width: 100%;
@@ -290,11 +291,95 @@ mat-spinner {
   margin: auto;
 }
 
-@media (max-width: 767px) {
+/**Handle new product Card >> Ali**/
+.products {
+  padding: 0 40px;
+}
+.products-card-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-content: center;
+}
+
+.products-card-container .card img {
+  height: 220px;
+}
+
+.card-body-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 10px;
+  text-wrap: wrap;
+}
+
+.products-card-container .product-price {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: auto;
+  height: 30px;
+  padding: 10px;
+  background: #0080ff;
+  color: #fff;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.products-card-container .product-price p {
+  margin: 0;
+}
+
+/* 
+
+.card-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+} */
+
+/**End Handle new product Card >> Ali**/
+@media (max-width: 992px) {
+  .products-card-container {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+}
+
+@media (max-width: 768px) {
   ::ng-deep .owl-prev span,
   ::ng-deep .owl-next span {
     width: 35px !important;
     height: 35px !important;
     line-height: 35px !important;
+  }
+
+  .products-card-container {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .card-body h1 {
+    font-size: 18px;
+  }
+  .product-price {
+    font-size: 12px !important;
+    width: 60px !important;
+    height: 30px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .products-card-container {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .products-card-container {
+    grid-template-columns: repeat(1, 1fr) !important;
   }
 }

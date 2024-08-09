@@ -124,47 +124,42 @@
   <!-- ***************************************************** -->
   <!-- =====================products======================== -->
   <!-- ***************************************************** -->
-  <h1 class="text-center mt-4 mb-0">{{ catSelectedName }} منتجات</h1>
+  <h1 class="text-center mt-4 mb-0">{{ catSelectedName }}</h1>
 
-  <div class="products-container col-12 pt-0">
+  <!--New Product card Handle >>> Ali -->
+  <div class="products container-fluid mt-5" dir="rtl">
     <div class="spinner" *ngIf="isLoading">
       <mat-spinner></mat-spinner>
     </div>
+
     <ng-container *ngIf="!isLoading">
-      <div
-        class="card-container d-flex flex-column justify-content-end"
-        *ngFor="let product of productsData; let index = index"
-      >
-        <!-- image -->
-        <a>
+      <div class="products-card-container">
+        <div
+          class="card mb-3"
+          *ngFor="let product of productsData; let index = index"
+        >
+          <div class="product-price">
+            <p>{{ product.productPriceSelected }}</p>
+            <span>ج.م</span>
+          </div>
           <img
-            class="card-image"
+            class="rounded"
             [src]="
               product.imageURL
                 ? product.imageURL
                 : '../../../../../../assets/images/img-temp.png'
             "
+            alt="Card image cap"
+            draggable="false"
           />
-        </a>
-        <!-- product info -->
-        <div class="card-info">
-          <div class="col-12">
-            <div class="d-flex justify-content-between">
-              <h1>{{ product.name }}</h1>
-              <h1 class="card-price">
-                {{ product.productPriceSelected }} <span>ج.م</span>
-              </h1>
-              <!-- <h1 class="card-price" *ngIf="product.prices.length > 1 &&productSizeId ===2 && product.id === productId">
-            {{product.prices[1].price}}
-          </h1>
-          <h1 class="card-price" *ngIf="product.prices.length > 2&&productSizeId ===3  && product.id === productId">
-            {{product.prices[2].price}}
-          </h1> -->
-            </div>
+
+          <div class="card-body-data" dir="rtl">
+            <h1>{{ product.name }}</h1>
+
             <p>
               {{ product.description === "null" ? "" : product.description }}
             </p>
-            <!-- <h2 *ngIf="product.prices.length > 1">المقاس</h2> -->
+
             <mat-radio-group
               *ngIf="product.prices.length > 1"
               aria-labelledby="example-radio-group-label"
@@ -181,39 +176,75 @@
               >
                 {{ price.sizeName }}
               </mat-radio-button>
+            </mat-radio-group>
 
-              <!-- <mat-radio-button
-              class="example-radio-button"
-              [value]="1"
-              color="primary"
-              (click)="setProductSizeRadioButton(1, index)"
-              (input)="setProductSizeRadioButton(1, index)"
+            <div class="add-cart-btn">
+              <button
+                class="card-button py-2 cursor-pointer"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                (click)="setItemCartIndex(index, product.mustAddImage)"
+              >
+                اضافة الى السلة
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!--End New Product card Handle >>> Ali -->
+
+  <!-- <div class="products-container col-12 pt-0">
+    <div class="spinner" *ngIf="isLoading">
+      <mat-spinner></mat-spinner>
+    </div>
+    <ng-container *ngIf="!isLoading">
+      <div
+        class="card-container d-flex flex-column justify-content-end"
+        *ngFor="let product of productsData; let index = index"
+      >
+        <a>
+          <img
+            class="card-image"
+            [src]="
+              product.imageURL
+                ? product.imageURL
+                : '../../../../../../assets/images/img-temp.png'
+            "
+          />
+        </a>
+        <div class="card-info">
+          <div class="col-12">
+            <div class="d-flex justify-content-between">
+              <h1>{{ product.name }}</h1>
+              <h1 class="card-price">
+                {{ product.productPriceSelected }} <span>ج.م</span>
+              </h1>
+            </div>
+            <p>
+              {{ product.description === "null" ? "" : product.description }}
+            </p>
+            <mat-radio-group
+              *ngIf="product.prices.length > 1"
+              aria-labelledby="example-radio-group-label"
+              class="example-radio-group"
+              [value]="product.productSizeSelected"
             >
-              صغير
-            </mat-radio-button>
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="2"
-              color="primary"
-              (click)="setProductSizeRadioButton(2, index)"
-              (input)="setProductSizeRadioButton(2, index)"
-            >
-              متوسط
-            </mat-radio-button>
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="3"
-              *ngIf="product.prices.length > 2"
-              color="primary"
-              (click)="setProductSizeRadioButton(3, index)"
-              (input)="setProductSizeRadioButton(3, index)"
-            >
-              كبير
-            </mat-radio-button> -->
+              <mat-radio-button
+                *ngFor="let price of product.prices"
+                class="example-radio-button"
+                [value]="price.sizesID"
+                color="primary"
+                (click)="setProductSizeRadioButton(price, index)"
+                (input)="setProductSizeRadioButton(price, index)"
+              >
+                {{ price.sizeName }}
+              </mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
-        <!-- product button -->
         <div class="d-flex">
           <button
             class="card-button py-2 cursor-pointer"
@@ -223,23 +254,17 @@
           >
             اضافة الى السلة
           </button>
-          <!-- <div
-          *ngIf="product.isDisabled"
-          class="card-button text-center bg-warning text-dark py-2 cursor-pointer"
-        >
-          مضاف إلى السلة
-        </div> -->
         </div>
       </div>
     </ng-container>
-  </div>
+  </div> -->
 
   <!-- *********************************************** -->
   <!-- ------------------pagination------------------- -->
   <!-- *********************************************** -->
 
   <div
-    class="my-2 d-flex justify-content-center text-center"
+    class="my-2 d-flex justify-content-center text-center mt-4"
     *ngIf="productsData?.length > 0 && !isLoading"
   >
     <!-- {{ h1 }} بسبب ان لما بختار 5 بييجي صف واحد بس فضطريت اعمل  -->
